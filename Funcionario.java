@@ -16,7 +16,7 @@ public class Funcionario extends Pessoa {
 
         fim = a.nextInt();
         
-        while (fim != 9999){}
+        while (fim != 9999){
 
             for(int i=0; i < 1; i++){
                 
@@ -33,6 +33,7 @@ public class Funcionario extends Pessoa {
                 listaPessoa.add(pessoa);
 
             }
+            
         }
 
         System.out.println(listaPessoa);
