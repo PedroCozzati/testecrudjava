@@ -12,14 +12,10 @@ public class Programa {
         
         List <Pessoa> pessoas = new ArrayList<>(); 
 
-        Controle dir = Controle.ENCERRAR;  
+        System.out.println("\n---------Cadastro de alunos---------\n\ndigite \"criar\" para um novo cadastro");
+        Controle dir = Controle.valueOf(scan.next().toUpperCase()); 
 
-        if(dir == Controle.ENCERRAR) {
-
-            System.out.println("ENCERRANDO");
-          
-
-        } else if(dir == Controle.CRIAR) {
+        while(dir == Controle.CRIAR) {
 
             Pessoa pessoa = new Pessoa();
 
@@ -36,29 +32,42 @@ public class Programa {
 
             pessoas.add(pessoa);
 
+            System.out.println("\nAluno cadastrado, digite \"criar\" para um novo cadastro, \"ver\" para ver a lista de alunos cadastrados e \"encerrar\" para encerrar o programa:");
+            dir = Controle.valueOf(scan.next().toUpperCase());
 
-             
-          } else if(dir == Controle.MODIFICAR) {
-             
-            } else {
-                
-                
-            }
     
-   
-        
-        
-           
-        
+            if (dir == Controle.VER){
 
+                System.out.print("\n------Ver lista-----\n\n");
+                
 
+                if (pessoas.isEmpty() ){
+
+                    System.out.print("lista vazia, se quer continuar digite \"criar\"");
+                    dir = Controle.valueOf(scan.next().toUpperCase());
+
+                }
+
+                else{
+                    System.out.print(pessoas+"\n\n");
+                }
+                
+            }      
+
+            if (dir == Controle.ENCERRAR){
+
+                System.out.println("\nEncerrando...\n");
+            }
             
+        }
+        if(dir==Controle.ENCERRAR) {
 
+            System.out.println("\nEncerrando...\n");
         }
 
-   
-        
     }    
+   
+} 
 
         
 

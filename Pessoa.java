@@ -30,7 +30,7 @@ public class Pessoa {
     }
 
     public String toString(){
-        return nome + " " + idade + " " + matricula;
+        return "\nNome:      "+ nome + "\nIdade:     " + idade + "\nMatricula: " + matricula+"\n";
     }
 
 }
