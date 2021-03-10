@@ -1,10 +1,8 @@
-
-
 public class Pessoa {
 
     String nome;
     int idade;
-
+    int matricula;
 
     public String getNome() {
         return nome;
@@ -22,8 +20,17 @@ public class Pessoa {
         this.idade=idade;
     }
 
+    
+    public int getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(int matricula) {
+        this.matricula=matricula;
+    }
+
     public String toString(){
-        return nome + " " + idade;
+        return nome + " " + idade + " " + matricula;
     }
 
 }

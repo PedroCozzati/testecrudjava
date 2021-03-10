@@ -1,11 +1,10 @@
 public class Controle {
     
-    private int criar;
+    private int continuar;
     private int fim;
     private int ver;
     private int modificar;
 
-    
     public Controle(int continuar, int fim, int ver, int modificar) {
         this.setContinuar(continuar);
         this.setFim(fim);
@@ -13,11 +12,9 @@ public class Controle {
         this.setModificar(modificar);
     }
 
-
     public int getModificar() {
         return modificar;
     }
-
 
     public void setModificar(int modificar) {
         this.modificar = modificar;
@@ -53,7 +50,4 @@ public class Controle {
         this.continuar = continuar;
     }
     
-   
-  
-
 }
