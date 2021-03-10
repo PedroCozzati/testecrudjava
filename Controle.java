@@ -1,53 +1,14 @@
-public class Controle {
-    
-    private int continuar;
-    private int fim;
-    private int ver;
-    private int modificar;
+public enum Controle{
+CRIAR(1), ENCERRAR(2), VER(3), MODIFICAR(4);
 
-    public Controle(int continuar, int fim, int ver, int modificar) {
-        this.setContinuar(continuar);
-        this.setFim(fim);
-        this.setVer(ver);
-        this.setModificar(modificar);
-    }
-
-    public int getModificar() {
-        return modificar;
-    }
-
-    public void setModificar(int modificar) {
-        this.modificar = modificar;
-    }
+private final int valor;
+Controle(int valorOpcao){
+    valor = valorOpcao;
 
 
-    public int getVer() {
-        return ver;
-    }
+}
+public int getValor() {
+    return valor;
 
-
-    public void setVer(int ver) {
-        this.ver = ver;
-    }
-
-
-    public int getFim() {
-        return fim;
-    }
-
-
-    public void setFim(int fim) {
-        this.fim = fim;
-    }
-
-
-    public int getContinuar() {
-        return continuar;
-    }
-
-
-    public void setContinuar(int continuar) {
-        this.continuar = continuar;
-    }
-    
+}
 }

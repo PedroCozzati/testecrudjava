@@ -1,8 +1,8 @@
 public class Pessoa {
 
-    String nome;
-    int idade;
-    int matricula;
+    private String nome;
+    private int idade;
+    private int matricula;
 
     public String getNome() {
         return nome;
