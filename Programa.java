@@ -10,60 +10,72 @@ public class Programa {
         scan = new Scanner(System.in);
         List <Pessoa> pessoas = new ArrayList<>(); 
 
-        System.out.println("\n---------Cadastro de alunos---------\n\ndigite \"criar\" para um novo cadastro \"encerrar\" para encerrar o programa");
-        Controle dir = Controle.valueOf(scan.next().toUpperCase()); 
+        System.out.println("\n---------Cadastro de alunos---------\n\ndigite \"criar\" para um novo cadastro \"encerrar\" para encerrar o programa\nR:");
+        Controle controle = Controle.valueOf(scan.next().toUpperCase()); 
         
-        if(dir == Controle.VER){
+        if(controle == Controle.VER){
             System.out.println("Não existe nenhum cadastro");
         }
-        else if(dir == Controle.ENCERRAR) {
+
+        else if(controle == Controle.ENCERRAR) {
             System.out.println("\nEncerrando...\n");
+            System.exit(0);
+            
         }
         
-            while (dir == Controle.CRIAR) {
+            while (controle == Controle.CRIAR) {
 
                 Pessoa pessoa = new Pessoa();
+                pessoa.salaDoAluno();
+                pessoa.materias();
+
                 System.out.println("\nCadastro\n");
-                System.out.println("\nDigite o nome:");
+                System.out.println("\nDigite o nome(minimo 3 caracteres, e começar com letra maiúscula):\nR:");
                 pessoa.setNome(scan.next());
 
-                    if (pessoa.getNome().length() < 5 || pessoa.getNome().length() > 50){
-
-                        System.out.println("\nErro, nome tem que ter apenas letras (minimo 5 caracteres)\nEncerrando....\n");
-                        break;
+                    if (pessoa.getNome().length() < 3 || pessoa.getNome().length() > 50 ){
+                    
+                        System.out.println("\nErro, nome tem que ter apenas letras (minimo 3 caracteres)\nEncerrando....\n");
+                        System.exit(0);
+                    }
+                    else if(pessoa.getNome().startsWith(pessoa.getNome().toLowerCase())){
+                        System.out.println("\nErro, nome tem que ter que começar com letra maiúscula\nEncerrando....\n");
+                        System.exit(0);
+                    
                     }
 
-                System.out.println("\nDigite a idade:");
+                System.out.println("\nDigite a idade(entre 18 e 70 anos):\nR:");
                 pessoa.setIdade(scan.nextInt());
 
                     if (pessoa.getIdade() < 18 || pessoa.getIdade() > 70){
 
                         System.out.println("\nerro, idade não permitida\nEncerrando....\n");
-                        break;
+                        System.exit(0);
                     }
             
-                System.out.println("\nDigite a matricula:");
+                System.out.println("\nDigite a matricula(entre 0 e 9999):\nR:");
                 pessoa.setMatricula(scan.nextInt());
 
-                if (pessoa.getMatricula() < 0 || pessoa.getMatricula() > 9999){
+                    if (pessoa.getMatricula() < 0 || pessoa.getMatricula() > 9999){
 
-                    System.out.println("\nerro, matricula não encontrada, deve ser entre 1 e 9999 \nEncerrando....\n");
-                    break;
-                }
+                        System.out.println("\nerro, matricula não encontrada, deve ser entre 1 e 9999 \nEncerrando....\n");
+                        System.exit(0);
+                    }
                 pessoas.add(pessoa);
 
-                System.out.println("\nAluno cadastrado, digite \"criar\" para um novo cadastro, \"ver\" para ver a lista de alunos cadastrados e \"encerrar\" para encerrar o programa:");
-                dir = Controle.valueOf(scan.next().toUpperCase());
+                System.out.println("\nAluno cadastrado, digite \"criar\" para um novo cadastro, \"ver\" para ver a lista de alunos cadastrados e \"encerrar\" para encerrar o programa:\nR:");
+                controle = Controle.valueOf(scan.next().toUpperCase());
 
-                if (dir == Controle.VER){
+                if (controle == Controle.VER){
 
                     System.out.print("\n------Ver lista-----\n\n");
                         System.out.print(pessoas+"\n\n");
                 }      
 
-                if (dir == Controle.ENCERRAR){
+                if (controle == Controle.ENCERRAR){
 
                     System.out.println("\nEncerrando...\n");
+                    System.exit(0);
                     
                 }
             }
