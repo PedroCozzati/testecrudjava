@@ -26,8 +26,6 @@ public class Programa {
             while (controle == Controle.CRIAR) {
 
                 Pessoa pessoa = new Pessoa();
-                pessoa.salaDoAluno();
-                pessoa.materias();
 
                 System.out.println("\nCadastro\n");
                 System.out.println("\nDigite o nome(minimo 3 caracteres, e começar com letra maiúscula):\nR:");
