@@ -1,9 +1,8 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
+import java.util.TreeMap;
 import java.util.List;
 import java.util.Map;
-
 
 public class Programa {
 
@@ -67,7 +66,7 @@ public class Programa {
     }
     public static void main(String[] args) {
         scan = new Scanner(System.in);
-        Map <String, Integer> chaveMatricula = new HashMap <>();
+        Map <String, Integer> chaveMatricula = new TreeMap <>();
         List <Pessoa> pessoas = new ArrayList<>(); 
         System.out.println("\n---------Cadastro de alunos---------\n\ndigite \"criar\" para um novo cadastro \"encerrar\" para encerrar o programa\nR:");
         Controle controle = Controle.valueOf(scan.next().toUpperCase()); 
@@ -109,7 +108,9 @@ public class Programa {
                     }
                 
                 pessoas.add(pessoa);
-                chaveMatricula.put("matricula",pessoa.getMatricula());
+                chaveMatricula.put(pessoa.getNome(),pessoa.getMatricula());
+                
+
                 System.out.println("\nAluno cadastrado, digite \"criar\" para um novo cadastro,  \"alterar\" para alterar um cadastro, \"deletar\" para excluir um cadastro,  \"ver\" para ver a lista de alunos cadastrados e \"encerrar\" para encerrar o programa:\nR:");
                 controle = Controle.valueOf(scan.next().toUpperCase());
 
@@ -129,11 +130,17 @@ public class Programa {
                     while(isVerificarControleAlterar(controle)){
                         
                         System.out.print("\n------Ver lista-----\n\n");
-                        System.out.print(pessoas+"\n"+chaveMatricula.values()+"\n\n");
-                        System.out.print("Qual matricula deseja alterar(a contagem inicia do 0)\n?");
+                        System.out.print(pessoas+"\n"+chaveMatricula.entrySet()+"\n\n");
+                        System.out.print("Qual matricula deseja alterar?\n");
+                        chaveMatricula.put(pessoa.getNome(),scan.nextInt());
                         
                         System.out.println("Qual a nova matricula?:  ");
-                        
+                        pessoa.setMatricula(scan.nextInt());
+                        chaveMatricula.put(pessoa.getNome(),pessoa.getMatricula()) ;
+                    
+                        System.out.print(chaveMatricula.entrySet()+"\n\n");
+                        System.out.print(pessoas+"\n"+chaveMatricula.entrySet()+"\n\n");
+
                         controle = Controle.valueOf(scan.next().toUpperCase());
 
                         if (isVerificarControleEncerrar(controle)){

@@ -1,30 +1,30 @@
 public class UniversidadeX implements Escola {
 
     @Override
-    public String endereco() {
+    public String getEndereco() {
         System.out.println("Rua X, numero 10");
-        return endereco();
+        return getEndereco();
 
     }
 
     @Override
-    public int salas() {
+    public int getSalas() {
         System.out.println("Numero de salas: 50");
-        return salas();
+        return getSalas();
         
     }
 
     @Override
-    public int professores() {
+    public int getProfessores() {
         System.out.println("Total de professores: 90");
-        return professores();
+        return getProfessores();
         
     }
 
     @Override
-    public int alunos() {
+    public int getAlunos() {
         System.out.println("Total de alunos:500");
-        return alunos();
+        return getAlunos();
     }
 
         
