@@ -1,8 +1,8 @@
 public interface Escola {
 
-    public String endereco();
-    public int salas();
-    public int professores();
-    public int alunos();
+    public String getEndereco();
+    public int getSalas();
+    public int getProfessores();
+    public int getAlunos();
     
 }

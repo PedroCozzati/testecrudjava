@@ -28,6 +28,7 @@ public class Pessoa {
         this.matricula=matricula;
     }
 
+    @Override
     public String toString(){
         return " \n  Nome:      "+ nome + "\n  Idade:     " + idade + "\n  Matricula: " + matricula+"\n";
     }
