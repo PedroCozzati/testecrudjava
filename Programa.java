@@ -12,6 +12,7 @@ public class Programa {
     private static final int NOME_MAXIMO = 50;
     private static final int MATRICULA_MINIMA = 0;
     private static final int MATRICULA_MAXIMA = 9999;
+    private static final String ERRO = "\nErro\n";
     private static Scanner scan;
     
     public static boolean isVerificarControleVer(Controle controle) {
@@ -35,28 +36,28 @@ public class Programa {
         return controle == Controle.DELETAR;
     }
 
-    public static boolean isVerificarNomeInvalido(Pessoa pessoa) {
-        String nome = pessoa.getNome();
+    public static boolean isVerificarNomeInvalido(Aluno aluno) {
+        String nome = aluno.getNome();
         int tamanho = nome.length(); 
         return tamanho < NOME_MINIMO || tamanho > NOME_MAXIMO;
          
     }
 
-    public static boolean isVerificarNomeMinuscula(Pessoa pessoa) {
-        String nome = pessoa.getNome();
+    public static boolean isVerificarNomeMinuscula(Aluno aluno) {
+        String nome = aluno.getNome();
         String letraInicial = nome.substring(0,1);
         String minuscula = letraInicial.toLowerCase();
         return letraInicial.equals(minuscula);
     }
 
-    public static boolean isVerificarIdadeNaoPermitida(Pessoa pessoa) {
-        int idadePessoa = pessoa.getIdade();
-        return idadePessoa < IDADE_MINIMA || idadePessoa > IDADE_MAXIMA;
+    public static boolean isVerificarIdadeNaoPermitida(Aluno aluno) {
+        int idadeAluno = aluno.getIdade();
+        return idadeAluno < IDADE_MINIMA || idadeAluno > IDADE_MAXIMA;
     }
 
-    public static boolean isVerificarMatriculaInvalida(Pessoa pessoa) {
-        int matriculaPessoa = pessoa.getMatricula();
-        return matriculaPessoa < MATRICULA_MINIMA || matriculaPessoa > MATRICULA_MAXIMA;
+    public static boolean isVerificarMatriculaInvalida(Aluno aluno) {
+        int matriculaAluno =aluno.getMatricula();
+        return matriculaAluno < MATRICULA_MINIMA || matriculaAluno > MATRICULA_MAXIMA;
     }
 
     public static boolean isVerificarControleValido(Controle controle){
@@ -67,56 +68,89 @@ public class Programa {
     public static void main(String[] args) {
         scan = new Scanner(System.in);
         Map <String, Integer> chaveMatricula = new TreeMap <>();
-        List <Pessoa> pessoas = new ArrayList<>(); 
+        List <Aluno> alunos = new ArrayList<>(); 
+        List <Professor> professores = new ArrayList<>();
+
+        System.out.println("\n---------Escolha o tipo de cadastro---------\n\ndigite \"criar\" para um novo cadastro \"encerrar\" para encerrar o programa\nR:");
+        System.out.println("\n---------Cadastro de Professores---------\n\ndigite \"criar\" para um novo cadastro \"encerrar\" para encerrar o programa\nR:");
+
+
         System.out.println("\n---------Cadastro de alunos---------\n\ndigite \"criar\" para um novo cadastro \"encerrar\" para encerrar o programa\nR:");
         Controle controle = Controle.valueOf(scan.next().toUpperCase()); 
         
         if(isVerificarControleValido(controle)) {
-            System.out.println("Não existe nenhum cadastro");
+            System.out.println(ERRO);
             System.exit(0);
         }
 
             while(isVerificarControleCriar(controle)) {
-                Pessoa pessoa = new Pessoa();
+                Aluno aluno = new Aluno();
+                Professor professor = new Professor();
+                UniversidadeX usp = new UniversidadeX();
+                
                 System.out.println("\nCadastro\n");
                 System.out.println("\nDigite o nome(minimo 3 caracteres, e começar com letra maiúscula):\nR:");
-                pessoa.setNome(scan.next());
+                aluno.setNome(scan.next());
 
-                    if(isVerificarNomeInvalido(pessoa)) {
-                        System.out.println("\nErro, nome tem que ter apenas letras (minimo 3 caracteres)\nEncerrando....\n");
+                    if(isVerificarNomeInvalido(aluno)) {
+                        System.out.println(ERRO);
                         System.exit(0);
                     }
-                    else if(isVerificarNomeMinuscula(pessoa)) {
-                        System.out.println("\nErro, nome tem que ter que começar com letra maiúscula\nEncerrando....\n");
+                    else if(isVerificarNomeMinuscula(aluno)) {
+                        System.out.println(ERRO);
                         System.exit(0);
                     }
 
                 System.out.println("\nDigite a idade(entre 18 e 70 anos):\nR:");
-                pessoa.setIdade(scan.nextInt());
+                aluno.setIdade(scan.nextInt());
 
-                    if(isVerificarIdadeNaoPermitida(pessoa)) {
-                        System.out.println("\nerro, idade não permitida\nEncerrando....\n");
-                        System.exit(0);
-                    }
-            
-                System.out.println("\nDigite a matricula(entre 0 e 9999):\nR:");
-                pessoa.setMatricula(scan.nextInt());
-
-                    if(isVerificarMatriculaInvalida(pessoa)) {
-                        System.out.println("\nerro, matricula não encontrada, deve ser entre 1 e 9999 \nEncerrando....\n");
+                    if(isVerificarIdadeNaoPermitida(aluno)) {
+                        System.out.println(ERRO);
                         System.exit(0);
                     }
                 
-                pessoas.add(pessoa);
-                chaveMatricula.put(pessoa.getNome(),pessoa.getMatricula());
+                System.out.println("\nA pessoa a ser cadastrada é aluno ou professor?");
+                System.out.println("\nDigite ALUNO OU PROFESSOR:\nR:");
+                Opcao opcao = Opcao.valueOf(scan.next().toUpperCase());
                 
+                if(opcao == Opcao.ALUNO){
+
+                    System.out.println("\nDigite a matricula(entre 0 e 9999):\nR:");
+                    aluno.setMatricula(scan.nextInt());
+
+                    if(isVerificarMatriculaInvalida(aluno)) {
+                        System.out.println(ERRO);
+                        System.exit(0);
+                    }
+                
+                alunos.add(aluno);
+                
+                chaveMatricula.put(aluno.getNome(),aluno.getMatricula());
+
+                }
+                else if(opcao == Opcao.PROFESSOR){
+
+                    System.out.println("\nDigite o certificado:\n Graduação, pós graduação,mestrado ou doutorado:\nR:");
+                    professor.setCertificado(scan.nextInt());
+
+                    if(professor.getCertificado() != 1 ) {
+                        System.out.println(ERRO);
+                        System.exit(0);
+                    }
+                
+                alunos.add(aluno);
+                chaveMatricula.put(aluno.getNome(),aluno.getMatricula());
+
+                }
 
                 System.out.println("\nAluno cadastrado, digite \"criar\" para um novo cadastro,  \"alterar\" para alterar um cadastro, \"deletar\" para excluir um cadastro,  \"ver\" para ver a lista de alunos cadastrados e \"encerrar\" para encerrar o programa:\nR:");
                 controle = Controle.valueOf(scan.next().toUpperCase());
 
                 if(isVerificarControleVer(controle)){
                         System.out.print("\n------Ver lista-----\n\n");
-                        System.out.print( pessoas+"\n\n");
+                        System.out.print( alunos+"\n\n");
+                        System.out.println("digite \"criar\" para um novo cadastro, e \"encerrar\" para fechar o programa\n");
+                        controle = Controle.valueOf(scan.next().toUpperCase());
                 }      
 
                 else if (isVerificarControleEncerrar(controle)) {
@@ -125,41 +159,40 @@ public class Programa {
                     System.exit(0);
                 }
 
-                else if (isVerificarControleAlterar(controle)) {
+                
                    
-                    while(isVerificarControleAlterar(controle)){
-                        
-                        System.out.print("\n------Ver lista-----\n\n");
-                        System.out.print(pessoas+"\n"+chaveMatricula.entrySet()+"\n\n");
-                        System.out.print("Qual matricula deseja alterar?\n");
-                        chaveMatricula.put(pessoa.getNome(),scan.nextInt());
-                        
-                        System.out.println("Qual a nova matricula?:  ");
-                        pessoa.setMatricula(scan.nextInt());
-                        chaveMatricula.put(pessoa.getNome(),pessoa.getMatricula()) ;
+                while(isVerificarControleAlterar(controle)){
                     
-                        System.out.print(chaveMatricula.entrySet()+"\n\n");
-                        System.out.print(pessoas+"\n"+chaveMatricula.entrySet()+"\n\n");
+                    System.out.print("\n------Ver lista-----\n\n");
+                    System.out.print(alunos+"\n"+chaveMatricula.entrySet()+"\n\n");
+                    System.out.print("Qual matricula deseja alterar?\n");
+                    chaveMatricula.put(aluno.getNome(),scan.nextInt());
+                    
+                    System.out.println("Qual a nova matricula?:  ");
+                    aluno.setMatricula(scan.nextInt());
+                    chaveMatricula.put(aluno.getNome(),aluno.getMatricula()) ;
+                
+                    System.out.print(chaveMatricula.entrySet()+"\n\n");
+                    System.out.print(alunos+"\n"+chaveMatricula.entrySet()+"\n\n");
 
-                        controle = Controle.valueOf(scan.next().toUpperCase());
+                    controle = Controle.valueOf(scan.next().toUpperCase());
 
-                        if (isVerificarControleEncerrar(controle)){
-                            System.exit(0);
-                        }
-                        else if(isVerificarControleCriar(controle)){                            
-                            isVerificarControleCriar(controle);
-                        }
-                        else{
-                            System.out.println("erro");
-                            System.exit(0);
-                        }
+                    if (isVerificarControleEncerrar(controle)){
+                        System.exit(0);
+                    }
+                    else if(isVerificarControleCriar(controle)){                            
+                        isVerificarControleCriar(controle);
+                    }
+                    else{
+                        System.out.println(ERRO);
+                        System.exit(0);
                     }
                 }
-                else if (isVerificarControleDeletar(controle)) {
+                if (isVerificarControleDeletar(controle)) {
                     System.out.print("\nQual cadastro você quer deletar(contagem inicia no 0)\n\n");
-                    pessoas.remove(pessoas.get(scan.nextInt()));
+                    alunos.remove(alunos.get(scan.nextInt()));
                     System.out.print("\n------Ver lista-----\n\n");
-                    System.out.print(pessoas+"\n\n");
+                    System.out.print(alunos+"\n\n");
                 }
             }   
     }
