@@ -68,12 +68,11 @@ public class Programa {
     public static void main(String[] args) {
         scan = new Scanner(System.in);
         Map <String, Integer> chaveMatricula = new TreeMap <>();
+        Map <String, Integer> chaveCertificado = new TreeMap <>();
         List <Aluno> alunos = new ArrayList<>(); 
         List <Professor> professores = new ArrayList<>();
 
-        System.out.println("\n---------Escolha o tipo de cadastro---------\n\ndigite \"criar\" para um novo cadastro \"encerrar\" para encerrar o programa\nR:");
-        System.out.println("\n---------Cadastro de Professores---------\n\ndigite \"criar\" para um novo cadastro \"encerrar\" para encerrar o programa\nR:");
-
+        
 
         System.out.println("\n---------Cadastro de alunos---------\n\ndigite \"criar\" para um novo cadastro \"encerrar\" para encerrar o programa\nR:");
         Controle controle = Controle.valueOf(scan.next().toUpperCase()); 
@@ -86,7 +85,7 @@ public class Programa {
             while(isVerificarControleCriar(controle)) {
                 Aluno aluno = new Aluno();
                 Professor professor = new Professor();
-                UniversidadeX usp = new UniversidadeX();
+                
                 
                 System.out.println("\nCadastro\n");
                 System.out.println("\nDigite o nome(minimo 3 caracteres, e começar com letra maiúscula):\nR:");
@@ -126,31 +125,48 @@ public class Programa {
                 alunos.add(aluno);
                 
                 chaveMatricula.put(aluno.getNome(),aluno.getMatricula());
+                System.out.println("\nAluno cadastrado, digite \"criar\" para um novo cadastro,  \"alterar\" para alterar um cadastro, \"deletar\" para excluir um cadastro,  \"ver\" para ver a lista de alunos cadastrados e \"encerrar\" para encerrar o programa:\nR:");
 
                 }
                 else if(opcao == Opcao.PROFESSOR){
+                    professor.setNome(aluno.getNome());
+                    System.out.println("\nDigite o ano do certificado:\nR:");
+                    professor.setAnoCertificado(scan.nextInt());
 
-                    System.out.println("\nDigite o certificado:\n Graduação, pós graduação,mestrado ou doutorado:\nR:");
-                    professor.setCertificado(scan.nextInt());
-
-                    if(professor.getCertificado() != 1 ) {
+                    if(professor.getAnoCertificado() > 2020 ) {
                         System.out.println(ERRO);
                         System.exit(0);
                     }
+                    else if(professor.getAnoCertificado() < 1980){
+                        System.out.println(ERRO);
+                        System.exit(0);
+
+                    }
                 
-                alunos.add(aluno);
-                chaveMatricula.put(aluno.getNome(),aluno.getMatricula());
+                professores.add(professor);
+                chaveCertificado.put(professor.getNome(),professor.getAnoCertificado());
+                System.out.println("\nProfessor cadastrado, digite \"criar\" para um novo cadastro,  \"alterar\" para alterar um cadastro, \"deletar\" para excluir um cadastro,  \"ver\" para ver a lista de alunos cadastrados e \"encerrar\" para encerrar o programa:\nR:");
 
-                }
-
-                System.out.println("\nAluno cadastrado, digite \"criar\" para um novo cadastro,  \"alterar\" para alterar um cadastro, \"deletar\" para excluir um cadastro,  \"ver\" para ver a lista de alunos cadastrados e \"encerrar\" para encerrar o programa:\nR:");
+            }
                 controle = Controle.valueOf(scan.next().toUpperCase());
-
                 if(isVerificarControleVer(controle)){
+                    System.out.print("\n-----Ver lista de professores ou alunos?\nDigite PROFESSOR OU ALUNO\n-----\n\n");
+                    opcao = Opcao.valueOf(scan.next().toUpperCase());
+                
+
+                    
+                    if (opcao == Opcao.PROFESSOR){
                         System.out.print("\n------Ver lista-----\n\n");
-                        System.out.print( alunos+"\n\n");
+                        System.out.print("\n"+professores+"\n\n");
                         System.out.println("digite \"criar\" para um novo cadastro, e \"encerrar\" para fechar o programa\n");
                         controle = Controle.valueOf(scan.next().toUpperCase());
+                    }
+                    else if (opcao ==Opcao.ALUNO){
+                        System.out.print("\n------Ver lista-----\n\n");
+                        System.out.print("\n"+alunos+"\n\n");
+                        System.out.println("digite \"criar\" para um novo cadastro, e \"encerrar\" para fechar o programa\n");
+                        controle = Controle.valueOf(scan.next().toUpperCase());
+                    }
                 }      
 
                 else if (isVerificarControleEncerrar(controle)) {
@@ -159,23 +175,40 @@ public class Programa {
                     System.exit(0);
                 }
 
-                
-                   
                 while(isVerificarControleAlterar(controle)){
+                    System.out.print("\n-----Ver lista de professores ou alunos?\nDigite PROFESSOR OU ALUNO\n-----\n\n");
+                    opcao = Opcao.valueOf(scan.next().toUpperCase());
                     
                     System.out.print("\n------Ver lista-----\n\n");
-                    System.out.print(alunos+"\n"+chaveMatricula.entrySet()+"\n\n");
-                    System.out.print("Qual matricula deseja alterar?\n");
-                    chaveMatricula.put(aluno.getNome(),scan.nextInt());
-                    
-                    System.out.println("Qual a nova matricula?:  ");
-                    aluno.setMatricula(scan.nextInt());
-                    chaveMatricula.put(aluno.getNome(),aluno.getMatricula()) ;
-                
-                    System.out.print(chaveMatricula.entrySet()+"\n\n");
-                    System.out.print(alunos+"\n"+chaveMatricula.entrySet()+"\n\n");
 
-                    controle = Controle.valueOf(scan.next().toUpperCase());
+                    if (opcao ==Opcao.ALUNO){
+                        System.out.print(alunos+"\n"+chaveMatricula.entrySet()+"\n\n");
+                        System.out.print("Qual matricula deseja alterar?\n");
+                        chaveMatricula.put(aluno.getNome(),scan.nextInt());
+                        
+                        System.out.println("Qual a nova matricula?:  ");
+                        aluno.setMatricula(scan.nextInt());
+                        chaveMatricula.put(aluno.getNome(),aluno.getMatricula()) ;
+                    
+                        System.out.print(chaveMatricula.entrySet()+"\n\n");
+                        System.out.print(alunos+"\n"+chaveMatricula.entrySet()+"\n\n");
+                        System.out.println("digite \"criar\" para um novo cadastro, e \"encerrar\" para fechar o programa\n");
+                    }
+                    else if (opcao == Opcao.PROFESSOR){
+
+                        System.out.print(professores+"\n"+chaveCertificado.entrySet()+"\n\n");
+                        System.out.print("Qual certificado  deseja alterar?\n");
+                        chaveMatricula.put(professor.getNome(),scan.nextInt());
+                        
+                        System.out.println("Qual o novao certificado?:  ");
+                        professor.setAnoCertificado(scan.nextInt());
+                        chaveCertificado.put(professor.getNome(),professor.getAnoCertificado()) ;
+                    
+                        System.out.print(chaveCertificado.entrySet()+"\n\n");
+                        System.out.print(professores+"\n"+chaveCertificado.entrySet()+"\n\n");
+                        System.out.println("digite \"criar\" para um novo cadastro, e \"encerrar\" para fechar o programa\n");
+                    }
+                        controle = Controle.valueOf(scan.next().toUpperCase());
 
                     if (isVerificarControleEncerrar(controle)){
                         System.exit(0);
@@ -189,10 +222,26 @@ public class Programa {
                     }
                 }
                 if (isVerificarControleDeletar(controle)) {
-                    System.out.print("\nQual cadastro você quer deletar(contagem inicia no 0)\n\n");
-                    alunos.remove(alunos.get(scan.nextInt()));
-                    System.out.print("\n------Ver lista-----\n\n");
-                    System.out.print(alunos+"\n\n");
+                    System.out.print("\nDe qual lista você quer deletar?\nDigite ALUNO OU PROFESSOR\n\n");
+                    opcao = Opcao.valueOf(scan.next().toUpperCase());
+
+                    if (opcao ==Opcao.ALUNO){
+                        System.out.print("\n------Ver lista-----\n\n");
+                        System.out.print(professores+"\n\n");
+                        System.out.print("\nQual cadastro você quer deletar(contagem inicia no 0)\n\n");
+                        alunos.remove(alunos.get(scan.nextInt()));
+                        System.out.print("\n------Ver lista-----\n\n");
+                        System.out.print(alunos+"\n\n");
+
+                    }
+                    else if (opcao == Opcao.PROFESSOR){
+                        System.out.print("\n------Ver lista-----\n\n");
+                        System.out.print(professores+"\n\n");
+                        System.out.print("\nQual cadastro você quer deletar(contagem inicia no 0)\n\n");
+                        professores.remove(professores.get(scan.nextInt()));
+                        System.out.print("\n------Ver lista-----\n\n");
+                        System.out.print(professores+"\n\n");
+                    }
                 }
             }   
     }

@@ -26,11 +26,11 @@ public class Professor implements Pessoa {
         this.idade=idade;
     }
 
-    public int getCertificado() {
+    public int getAnoCertificado() {
         return certificado;
     }
 
-    public void setCertificado(int certificado) {
+    public void setAnoCertificado(int certificado) {
         this.certificado = certificado;
     }
 
